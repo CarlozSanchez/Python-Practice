@@ -36,11 +36,12 @@ for item in beerList:
 
     if(len(item[0]) == 12):
         fileName = prefix + str(item[0])
-        barcode = upca(item[0])
+        barcode = upca(item[0], writer = ImageWriter()) #PNG Version
+        #barcode = upca(item[0])  #SVG Version 
 
     elif(len(item[0]) == 8):
         fileName = prefix + str(item[0])
-        barcode = ean8(item[0])
+        barcode = ean8(item[0], writer = ImageWriter())
 
     else:
         print('Unable to process: ' + i)
@@ -48,10 +49,8 @@ for item in beerList:
 
 
     if barcode:
-        result = barcode.save(filePath / fileName)
+        result = barcode.save(filePath / fileName, options={'write_text':False})
         print(fileName.ljust(16) + " was saved to : " + str(fileDirectory))
-
-
 
 	#print( str(len(i[0])))
 

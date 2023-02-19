@@ -1,4 +1,4 @@
-from pathlib import path
+from pathlib import Path
 import os
 import barcode
 
@@ -14,6 +14,8 @@ beerList = [
 ['01813027', 'King Cobra 32oz bottle', None, 'BEER' ] ,
 ]
 
+
+print(Path.cwd())
 
 for beer in beerList:
 	print(beer)

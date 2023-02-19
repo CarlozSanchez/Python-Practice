@@ -20,7 +20,7 @@ SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly']
 
 
 # Create a path to credentials.json
-path = 'Documents/GitHub/Python Projects/Google Sheets Project'
+path = 'G-creds'
 credentialsFileName = 'credentials-sheets.json'
 credentialsPath = Path.home() / path / credentialsFileName
 
@@ -35,6 +35,7 @@ def getValues(spreadsheetID, rangeName):
     # time.
 	if os.path.exists('token.json'):
 		creds = Credentials.from_authorized_user_file('token.json', SCOPES)
+		
 
 	# If there are no (valid) credentials available, let the user log in.
 	if not creds or not creds.valid:
