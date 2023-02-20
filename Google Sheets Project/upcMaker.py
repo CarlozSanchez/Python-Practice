@@ -1,7 +1,9 @@
 import barcode
 import ezsheets
 import os
+
 from pathlib import Path
+from barcode.writer import ImageWriter
 
 
 
@@ -19,15 +21,15 @@ print(spreadSheets.title + 'Aquired !!!\n.\n.')
 
 # Create path to store UPC images
 fileName = 'default'
-fileDirectory = Path.home() / 'Barcodes'
-filePath = Path(fileDirectory)
+sourcePath = os.path.dirname(os.path.abspath(__file__)) 
+barcodePath = Path(sourcePath) / 'Barcodes'
 
-if not filePath.exists():
-	os.makedirs(filePath)
+if not barcodePath.exists():
+	os.makedirs(barcodePath)
 
 #Create a TXT file to store output results
-resultFile = open((fileDirectory / 'Result.txt'), 'w')
-errorFile = open((fileDirectory / 'Error_Report.txt'), 'w')
+resultFile = open((barcodePath / 'Result.txt'), 'w')
+errorFile = open((barcodePath / 'Error_Report.txt'), 'w')
 
 # Initialize upc's for processing
 ean8 = barcode.get_barcode_class('ean8')
@@ -56,19 +58,19 @@ for i, row in enumerate(sheet):
 
 	try:
 		if(len(row[0]) == 8):
-			barcode = ean8(row[0])
+			barcode = ean8(row[0], ImageWriter())
 			eanType = 'ean8'
 
 		elif(len(row[0]) == 12):
-			barcode = upca(row[0])
+			barcode = upca(row[0], ImageWriter())
 			eanType = 'ean12'
 
 		elif(len(row[0]) == 13):
-			barcode = ean13(row[0])
+			barcode = ean13(row[0], ImageWriter())
 			eanType = 'ean13'
 
 		elif(len(row[0]) == 14):
-			barcode = ean14(row[0])
+			barcode = ean14(row[0], ImageWriter())
 			eanType = 'ean14'
 
 		else:
@@ -88,12 +90,12 @@ for i, row in enumerate(sheet):
 
 	else:
 		fileName = prefix + str(row[0])
-		result = barcode.save(filePath / fileName)
+		result = barcode.save(barcodePath / fileName)
 
 		s1 =  '[' + str(i) + ']'
 		s2 = row[0]
 		s3 = 'ean: ' + eanType
-		s4 = 'location: ' +  str(fileDirectory)
+		s4 = 'location: ' +  str(barcodePath)
 		s5 = ''
 
 		count += 1

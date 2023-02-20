@@ -31,6 +31,12 @@ beerList = [
 ['01813027', 'King Cobra 32oz bottle', None, 'BEER' ] ,
 ]
 
+
+print(os.path.abspath(__file__))
+print(os.path.dirname(os.path.abspath(__file__)))
+
+
+
 prefix = 'upc_'
 for item in beerList:
 
