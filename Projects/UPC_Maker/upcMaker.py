@@ -17,7 +17,7 @@ SPREADSHEET_ID = '1yvUQJTU1kAATaT_nhfTckbLCTGtyPPnbrRgogZX1XkU'
 # Store inventory to process
 spreadSheets = ezsheets.Spreadsheet(SPREADSHEET_ID)
 sheet = spreadSheets[0]
-print(spreadSheets.title + 'Aquired !!!\n.\n.')
+print(spreadSheets.title + ' Aquired !!!\n.\n.')
 
 # Create path to store UPC images
 fileName = 'default'
@@ -90,9 +90,10 @@ for i, row in enumerate(sheet):
 
 	else: #All good save barcode as PNG file to barcode Directory
 		fileName = prefix + str(row[0])
-		result = barcode.save((barcodeDir / fileName), options = {'write_text':False})
+		#result = barcode.save((barcodeDir / fileName), options = {'write_text':False})
+		result = barcode.save((barcodeDir / fileName))
 
-		#Output text file info
+		#Output results to text file
 		s1 =  '[' + str(i) + ']'
 		s2 = row[0]
 		s3 = 'ean: ' + eanType
