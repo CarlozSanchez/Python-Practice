@@ -10,8 +10,11 @@ fileName = 'default'
 fileDirectory = Path.home() / 'Barcode Output' 
 filePath = Path(fileDirectory)
 
-if not filePath.exists():
-    os.makedirs(filePath)
+sourcePath = os.path.dirname(os.path.abspath(__file__))
+barcodeDir = Path(sourcePath) / 'Barcodes'
+
+if not barcodeDir.exists():
+    os.makedirs(barcodeDir)
 
 upca = barcode.get_barcode_class('upca')
 ean8 = barcode.get_barcode_class('ean8')
@@ -31,6 +34,7 @@ beerList = [
 ['01813027', 'King Cobra 32oz bottle', None, 'BEER' ] ,
 ]
 
+printOptions = {'write_text':True, 'quiet_zone':2}
 
 print(os.path.abspath(__file__))
 print(os.path.dirname(os.path.abspath(__file__)))
@@ -55,10 +59,10 @@ for item in beerList:
 
 
     if barcode:
-        result = barcode.save(filePath / fileName, options={'write_text':False})
-        print(fileName.ljust(16) + " was saved to : " + str(fileDirectory))
+        result = barcode.save(barcodeDir / fileName, printOptions)
+        print(fileName.ljust(16) + " was saved to : " + str(barcodeDir))
 
-	#print( str(len(i[0])))
+    #print( str(len(i[0])))
 
     #rv = BytesIO()
     #EAN13(str(9300000307), writer=ImageWriter()).write(rv)

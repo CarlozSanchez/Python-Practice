@@ -17,7 +17,7 @@ SPREADSHEET_ID = '1yvUQJTU1kAATaT_nhfTckbLCTGtyPPnbrRgogZX1XkU'
 # Store inventory to process
 spreadSheets = ezsheets.Spreadsheet(SPREADSHEET_ID)
 sheet = spreadSheets[0]
-print(spreadSheets.title + ' Aquired !!!\n.\n.')
+print(spreadSheets.title + 'Aquired !!!\n.\n.')
 
 # Create path to store UPC images
 fileName = 'default'
@@ -38,13 +38,18 @@ ean13 = barcode.get_barcode_class('ean13')
 ean14 = barcode.get_barcode_class('ean14')
 
 # Initialize variables
-barcode = None
-count = 0
-missed = 0
-prefix = 'upc_'
-eanType =''
+# barcode = None
+# count = 0
+# missed = 0
+# prefix = 'upc_'
+# eanType =''
 
-buf1, buf2, buf3, buf4, buf5 = 8, 24, 16, 38, 20
+#Print Variables
+barcode,count, missed, prefix, eanType = None, 0, 0, 'upc_', ''
+printOptions = {'write_text':True, 'quiet_zone':2}
+
+#formatting variables
+b1, b2, b3, b4, b5 = 8, 24, 16, 38, 20
 s1, s2, s3, s4 = '', '', '', ''
 
 
@@ -86,14 +91,13 @@ for i, row in enumerate(sheet):
 		barcode = None
 		missed += 1
 		errorFile.write('%s%s%s%s%s\n' 
-			% (s1.ljust(buf1), s2.ljust(buf2), s3.ljust(buf3), s4.ljust(buf4), s5.ljust(buf5)))
+			% (s1.ljust(b1), s2.ljust(b2), s3.ljust(b3), s4.ljust(b4), s5.ljust(b5)))
 
 	else: #All good save barcode as PNG file to barcode Directory
 		fileName = prefix + str(row[0])
-		#result = barcode.save((barcodeDir / fileName), options = {'write_text':False})
-		result = barcode.save((barcodeDir / fileName))
+		result = barcode.save((barcodeDir / fileName), printOptions)
 
-		#Output results to text file
+		#Output text file info
 		s1 =  '[' + str(i) + ']'
 		s2 = row[0]
 		s3 = 'ean: ' + eanType
@@ -104,7 +108,7 @@ for i, row in enumerate(sheet):
 
 	finally: # Write info about processed item to output file
 		resultFile.write('%s%s%s%s%s\n' 
-			% (s1.ljust(buf1), s2.ljust(buf2), s3.ljust(buf3), s4.ljust(buf4), s5.ljust(buf5)))
+			% (s1.ljust(b1), s2.ljust(b2), s3.ljust(b3), s4.ljust(b4), s5.ljust(b5)))
 	 
 # Print results
 message = ('\n----- ' + str(count) + ' items processed, '  + str(missed) 
