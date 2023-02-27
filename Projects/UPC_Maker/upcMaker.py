@@ -45,7 +45,7 @@ ean14 = barcode.get_barcode_class('ean14')
 # eanType =''
 
 #Print Variables
-barcode,count, missed, prefix, eanType = None, 0, 0, 'upc_', ''
+barcode,count, missed, prefix, eanType = None, 0, 0, 'UPC_', ''
 printOptions = {'write_text':True, 'quiet_zone':2}
 
 #formatting variables
