@@ -36,6 +36,8 @@ beerList = [
 
 printOptions = {'write_text':True, 'quiet_zone':2}
 
+# os.path.basename() returns the last part of the url
+# os.path.join() need to try this out
 print(os.path.abspath(__file__))
 print(os.path.dirname(os.path.abspath(__file__)))
 
