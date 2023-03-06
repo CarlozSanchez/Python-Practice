@@ -11,7 +11,7 @@ fileDir = Path(sourcePath) / filename
 def displayResult():
 	print("connection: " + str(res.status_code == requests.codes.ok))
 	print(str(len(res.text)) + ' characters long')
-	print(res.text[:2250])
+	print(res.text[:200])
 
 #Start
 webAddress = 'https://automatetheboringstuff.com/files/rj.txt'
